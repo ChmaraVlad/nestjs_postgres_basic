@@ -6,7 +6,7 @@ interface IUserCreationAttrs {
 }
 
 @Table
-export class User extends Model<User, IUserCreationAttrs> {
+export class Users extends Model<Users, IUserCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
