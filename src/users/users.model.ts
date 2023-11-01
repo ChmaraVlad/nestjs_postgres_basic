@@ -32,11 +32,12 @@ export class Users extends Model<Users, IUserCreationAttrs> {
     type: DataType.BOOLEAN,
     defaultValue: false,
   })
-  banned: string;
+  banned: boolean;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: '',
   })
   banReason: string;
 }
