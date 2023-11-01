@@ -6,6 +6,9 @@ import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Users } from './users/users.model';
+import { RolesService } from './roles/roles.service';
+import { RolesModule } from './roles/roles.module';
+import { Roles } from './roles/roles.model';
 
 @Module({
   imports: [
@@ -19,11 +22,13 @@ import { Users } from './users/users.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Users],
+      models: [Users, Roles],
       autoLoadModels: true,
     }),
     AuthModule,
     UsersModule,
+    RolesModule,
   ],
+  providers: [RolesService],
 })
 export class AppModule {}
