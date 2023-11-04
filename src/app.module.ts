@@ -30,6 +30,5 @@ import { UserRoles } from './roles/user-role.model';
     UsersModule,
     RolesModule,
   ],
-  providers: [RolesService],
 })
 export class AppModule {}
