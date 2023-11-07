@@ -4,6 +4,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 
 import { CreateUserDto } from './dto/create-user.dto';
+import { AddRoleDto } from './dto/add-role-dto';
+import { BanUserDto } from './dto/ban-user-dto';
 
 import { RolesService } from 'src/roles/roles.service';
 
@@ -51,5 +53,31 @@ export class UsersService {
       include: { all: true },
     });
     return user;
+  }
+  async banUser(dto: BanUserDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+
+    if (user) {
+      user.banned = true;
+      user.banReason = dto.banReason;
+      await user.save();
+      return user;
+    }
+    throw new HttpException('Пользователь не найдено', HttpStatus.NOT_FOUND);
+  }
+
+  async addRoleToUser(dto: AddRoleDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+
+    const role = await this.roleServices.getRoleByValue(dto.value);
+
+    if (role && user) {
+      await user.$add('role', role.id);
+      return user;
+    }
+    throw new HttpException(
+      'Пользователь или роль не найдено',
+      HttpStatus.NOT_FOUND,
+    );
   }
 }
