@@ -71,3 +71,31 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+<!-- you neeed to add ENV -->
+.env
+PORT=5000
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=nest-course
+POSTGRES_PORT=nest-course
+
+also
+.production.env
+PORT=5000
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=nest-course
+POSTGRES_PORT=nest-course
+
+also
+.development.env
+PORT=7000
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=nest-course
+POSTGRES_PORT=nest-course
