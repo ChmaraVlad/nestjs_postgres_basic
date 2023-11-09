@@ -9,14 +9,15 @@ import {
 } from 'sequelize-typescript';
 import { User } from 'src/users/users.model';
 
-interface IPost {
+interface IPostCreatingAttrs {
   title: string;
   content: string;
+  userId: number;
   image: string;
 }
 
 @Table({ tableName: 'posts' })
-export class Post extends Model<Post, IPost> {
+export class Post extends Model<Post, IPostCreatingAttrs> {
   @ApiProperty({ example: 1, description: 'Primary key' })
   @Column({
     type: DataType.INTEGER,
