@@ -34,11 +34,7 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const hashPassword = await bcrypt.hash(userDto.password, 5);
-    const user = await this.userService.createUser({
-      ...userDto,
-      password: hashPassword,
-    });
+    const user = await this.userService.createUser({ ...userDto });
     return this.generateToken(user);
   }
 
@@ -48,6 +44,7 @@ export class AuthService {
       token: this.jwtService.sign(payload),
     };
   }
+
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUserByEmail(userDto.email);
     const passwordEquals = await bcrypt.compare(

@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import * as bcrypt from 'bcryptjs';
 
 import { User } from './users.model';
 
@@ -17,7 +18,11 @@ export class UsersService {
   ) {}
 
   async createUser(dto: CreateUserDto) {
-    const user = await this.userRepository.create(dto);
+    const hashPassword = await bcrypt.hash(dto.password, 5);
+
+    const updatedDto = { ...dto, password: hashPassword };
+
+    const user = await this.userRepository.create(updatedDto);
     const role = await this.roleServices.getRoleByValue('USER');
     await user.$set('roles', [role.id]);
     user.roles = [role];
